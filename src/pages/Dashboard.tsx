@@ -20,14 +20,14 @@ import { useAppStore } from '@/stores/appStore';
 
 const statsData = [
   {
-    title: "Active Flows",
-    value: "12",
+    title: "Total Flows",
+    value: "3",
     change: "+2 from last week",
     icon: Workflow,
     color: "text-primary",
   },
   {
-    title: "Total Executions",
+    title: "Total Files",
     value: "1,426",
     change: "+18% from last month",
     icon: Activity,
@@ -35,18 +35,11 @@ const statsData = [
   },
   {
     title: "Team Members",
-    value: "8",
+    value: "4",
     change: "2 pending invites",
     icon: Users,
     color: "text-warning",
-  },
-  {
-    title: "Success Rate",
-    value: "98.2%",
-    change: "+0.5% improvement",
-    icon: TrendingUp,
-    color: "text-success",
-  },
+  }
 ];
 
 const recentActivity = [
@@ -121,7 +114,7 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {statsData.map((stat, index) => (
           <Card key={index} className="hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
