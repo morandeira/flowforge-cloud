@@ -51,13 +51,13 @@ export default function Settings() {
       </div>
 
       <Tabs defaultValue="profile" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="profile">Profile</TabsTrigger>
           <TabsTrigger value="organization">Organization</TabsTrigger>
           <TabsTrigger value="security">Security</TabsTrigger>
           <TabsTrigger value="notifications">Notifications</TabsTrigger>
           <TabsTrigger value="appearance">Appearance</TabsTrigger>
-          <TabsTrigger value="integrations">Integrations</TabsTrigger>
+          {/* <TabsTrigger value="integrations">Integrations</TabsTrigger> */}
         </TabsList>
 
         {/* Profile Settings */}
@@ -378,7 +378,7 @@ export default function Settings() {
         </TabsContent>
 
         {/* Integrations Settings */}
-        <TabsContent value="integrations" className="space-y-6">
+        {/* <TabsContent value="integrations" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -402,7 +402,7 @@ export default function Settings() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </div>
   );
