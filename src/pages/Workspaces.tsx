@@ -134,7 +134,7 @@ export default function Workspaces() {
         ))}
 
         {/* Create New Workspace Card */}
-        <Card 
+        {/* <Card 
           className="border-dashed hover:bg-muted/50 cursor-pointer transition-colors"
           onClick={handleCreateWorkspace}
         >
@@ -149,7 +149,7 @@ export default function Workspaces() {
               </p>
             </div>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
     </div>
   );

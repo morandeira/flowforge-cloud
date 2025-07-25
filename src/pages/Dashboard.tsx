@@ -167,13 +167,13 @@ export default function Dashboard() {
               </div>
             ))}
             
-            <Button 
+            {/* <Button 
               variant="outline" 
               className="w-full border-dashed hover:bg-primary/5"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create New Workspace
-            </Button>
+            </Button> */}
           </CardContent>
         </Card>
 
