@@ -2,18 +2,18 @@ import { create } from 'zustand';
 import { Workspace, Flow } from '@/types';
 
 interface WorkspaceStore {
-  workspaces: Workspace[];
-  flows: Record<string, Flow[]>; // workspaceId -> flows
+  workspaces: Array<Workspace>;
+  flows: Record<string, Array<Flow>>; // workspaceId -> flows
   isLoading: boolean;
   error: string | null;
   
   // Actions
-  setWorkspaces: (workspaces: Workspace[]) => void;
+  setWorkspaces: (workspaces: Array<Workspace>) => void;
   addWorkspace: (workspace: Workspace) => void;
   updateWorkspace: (id: string, updates: Partial<Workspace>) => void;
   deleteWorkspace: (id: string) => void;
   
-  setFlows: (workspaceId: string, flows: Flow[]) => void;
+  setFlows: (workspaceId: string, flows: Array<Flow>) => void;
   addFlow: (workspaceId: string, flow: Flow) => void;
   updateFlow: (workspaceId: string, flowId: string, updates: Partial<Flow>) => void;
   deleteFlow: (workspaceId: string, flowId: string) => void;
@@ -22,12 +22,12 @@ interface WorkspaceStore {
   setError: (error: string | null) => void;
   
   // Getters
-  getWorkspaceFlows: (workspaceId: string) => Flow[];
+  getWorkspaceFlows: (workspaceId: string) => Array<Flow>;
   getFlow: (workspaceId: string, flowId: string) => Flow | undefined;
 }
 
 // Mock data
-const mockWorkspaces: Workspace[] = [
+const mockWorkspaces: Array<Workspace> = [
   {
     id: 'ws_1',
     tenantId: 'tenant_demo',
@@ -51,7 +51,7 @@ const mockWorkspaces: Workspace[] = [
     members: [
       { userId: 'user_1', role: 'admin', joinedAt: '2024-01-03T00:00:00Z' },
     ],
-    flowCount: 2,
+    flowCount: 0,
     createdAt: '2024-01-03T00:00:00Z',
     updatedAt: '2024-01-10T00:00:00Z',
   },
