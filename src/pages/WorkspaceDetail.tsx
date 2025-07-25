@@ -92,6 +92,11 @@ export default function WorkspaceDetail() {
     navigate(`/workspace/${workspaceId}/flow/${flow.id}`);
   };
 
+  const handleCreateFlow = () => {
+    // TODO: Implement create flow functionality
+    console.log('Create flow clicked for workspace:', workspaceId);
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'published':
@@ -150,7 +155,7 @@ export default function WorkspaceDetail() {
             <Edit className="w-4 h-4 mr-2" />
             Edit Workspace
           </Button>
-          <Button className="bg-gradient-primary hover:opacity-90">
+          <Button onClick={handleCreateFlow} className="bg-gradient-primary hover:opacity-90">
             <Plus className="w-4 h-4 mr-2" />
             New Flow
           </Button>
@@ -239,7 +244,7 @@ export default function WorkspaceDetail() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">Flows</h2>
-          <Button variant="outline" size="sm">
+          <Button onClick={handleCreateFlow} variant="outline" size="sm">
             <Plus className="w-4 h-4 mr-2" />
             Create Flow
           </Button>

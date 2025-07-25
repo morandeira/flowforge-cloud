@@ -118,7 +118,7 @@ export default function Dashboard() {
         </div>
         <Button className="bg-gradient-primary hover:opacity-90">
           <Plus className="w-4 h-4 mr-2" />
-          Create Flow
+          Create Workspace
         </Button>
       </div>
 
