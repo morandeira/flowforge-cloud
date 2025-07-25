@@ -118,7 +118,7 @@ export default function Dashboard() {
         </div>
         <Button className="bg-gradient-primary hover:opacity-90">
           <Plus className="w-4 h-4 mr-2" />
-          Create Flow
+          Create Workspace
         </Button>
       </div>
 
@@ -207,44 +207,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
-
-      {/* Performance Overview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5" />
-            Performance Overview
-          </CardTitle>
-          <CardDescription>
-            System performance and resource utilization
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>CPU Usage</span>
-                <span>42%</span>
-              </div>
-              <Progress value={42} className="h-2" />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Memory Usage</span>
-                <span>68%</span>
-              </div>
-              <Progress value={68} className="h-2" />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Storage Usage</span>
-                <span>24%</span>
-              </div>
-              <Progress value={24} className="h-2" />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }
