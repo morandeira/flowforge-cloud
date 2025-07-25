@@ -128,16 +128,7 @@ export default function WorkspaceDetail() {
     <div className="p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => navigate('/dashboard')}
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
-          </Button>
-          
+        <div className="flex items-center gap-4">          
           <div className="flex items-center gap-3">
             <div
               className="w-4 h-4 rounded-full"
@@ -155,9 +146,18 @@ export default function WorkspaceDetail() {
             <Edit className="w-4 h-4 mr-2" />
             Edit Workspace
           </Button>
-          <Button onClick={handleCreateFlow} className="bg-gradient-primary hover:opacity-90">
+          {/* <Button onClick={handleCreateFlow} className="bg-gradient-primary hover:opacity-90">
             <Plus className="w-4 h-4 mr-2" />
             New Flow
+          </Button> */}
+
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate('/dashboard')}
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back
           </Button>
         </div>
       </div>
@@ -212,9 +212,15 @@ export default function WorkspaceDetail() {
       {/* Team Members */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex justify-between">
+            <div className='flex items-center gap-2'>
             <User className="w-5 h-5" />
             Team Members
+            </div>
+            <Button variant="outline" size="sm">
+              <Plus className="w-4 h-4 mr-2" />
+              Invite Member
+            </Button>
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -232,10 +238,10 @@ export default function WorkspaceDetail() {
                 </div>
               </div>
             ))}
-            <Button variant="outline" size="sm">
+            {/* <Button variant="outline" size="sm">
               <Plus className="w-4 h-4 mr-2" />
               Invite Member
-            </Button>
+            </Button> */}
           </div>
         </CardContent>
       </Card>
