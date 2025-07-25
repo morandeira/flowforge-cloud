@@ -2,21 +2,21 @@ import { create } from 'zustand';
 import { FlowNode, FlowEdge, NodeType } from '@/types';
 
 interface FlowStore {
-  nodes: FlowNode[];
-  edges: FlowEdge[];
-  selectedNodes: string[];
+  nodes: Array<FlowNode>;
+  edges: Array<FlowEdge>;
+  selectedNodes: Array<string>;
   isLoading: boolean;
   
   // Actions
-  setNodes: (nodes: FlowNode[]) => void;
-  setEdges: (edges: FlowEdge[]) => void;
+  setNodes: (nodes: Array<FlowNode>) => void;
+  setEdges: (edges: Array<FlowEdge>) => void;
   addNode: (node: FlowNode) => void;
   updateNode: (id: string, updates: Partial<FlowNode>) => void;
   deleteNode: (id: string) => void;
   addEdge: (edge: FlowEdge) => void;
   updateEdge: (id: string, updates: Partial<FlowEdge>) => void;
   deleteEdge: (id: string) => void;
-  setSelectedNodes: (nodeIds: string[]) => void;
+  setSelectedNodes: (nodeIds: Array<string>) => void;
   createNewNode: (type: NodeType, position: { x: number; y: number }) => FlowNode;
   setLoading: (loading: boolean) => void;
   clearFlow: () => void;
