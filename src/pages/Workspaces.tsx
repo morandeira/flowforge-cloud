@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Plus,
@@ -20,8 +20,12 @@ import { useAppStore } from '@/stores/appStore';
 
 export default function Workspaces() {
   const navigate = useNavigate();
-  const { workspaces } = useWorkspaceStore();
+  const { workspaces, fetchWorkspaces, isLoading, error } = useWorkspaceStore();
   const { setCurrentWorkspace } = useAppStore();
+
+  useEffect(() => {
+    fetchWorkspaces();
+  }, [fetchWorkspaces]);
 
   const handleWorkspaceClick = (workspace: any) => {
     setCurrentWorkspace(workspace);
@@ -32,6 +36,30 @@ export default function Workspaces() {
     // TODO: Implement create workspace functionality
     console.log('Create workspace clicked');
   };
+
+  if (isLoading) {
+    return (
+      <div className="p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+          <p className="mt-4 text-muted-foreground">Loading workspaces...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-6 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-destructive">Error loading workspaces: {error}</p>
+          <Button onClick={() => fetchWorkspaces()} className="mt-4">
+            Try Again
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 space-y-6">
