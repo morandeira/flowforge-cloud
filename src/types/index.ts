@@ -18,7 +18,7 @@ export interface User {
   email: string;
   name: string;
   avatar?: string;
-  tenantIds: Array<string>;
+  tenantIds: string[];
   role: 'admin' | 'user' | 'viewer';
   lastActiveAt: string;
 }
@@ -48,8 +48,8 @@ export interface Flow {
   description?: string;
   version: string;
   status: 'draft' | 'published' | 'archived';
-  nodes: Array<FlowNode>;
-  edges: Array<FlowEdge>;
+  nodes: FlowNode[];
+  edges: FlowEdge[];
   metadata: FlowMetadata;
   createdAt: string;
   updatedAt: string;
@@ -81,7 +81,7 @@ export interface FlowEdge {
 }
 
 export interface FlowMetadata {
-  tags: Array<string>;
+  tags: string[];
   category: string;
   author: string;
   lastModifiedBy: string;

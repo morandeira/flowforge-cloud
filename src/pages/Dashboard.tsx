@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
+  BarChart3, 
   Workflow, 
   Users, 
   Activity, 
@@ -13,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 
 import { useSessionStore } from '@/stores/sessionStore';
 import { useWorkspaceStore } from '@/stores/workspaceStore';
@@ -20,14 +22,14 @@ import { useAppStore } from '@/stores/appStore';
 
 const statsData = [
   {
-    title: "Total Flows",
-    value: "3",
+    title: "Active Flows",
+    value: "12",
     change: "+2 from last week",
     icon: Workflow,
     color: "text-primary",
   },
   {
-    title: "Total Files",
+    title: "Total Executions",
     value: "1,426",
     change: "+18% from last month",
     icon: Activity,
@@ -35,11 +37,18 @@ const statsData = [
   },
   {
     title: "Team Members",
-    value: "4",
+    value: "8",
     change: "2 pending invites",
     icon: Users,
     color: "text-warning",
-  }
+  },
+  {
+    title: "Success Rate",
+    value: "98.2%",
+    change: "+0.5% improvement",
+    icon: TrendingUp,
+    color: "text-success",
+  },
 ];
 
 const recentActivity = [
@@ -109,12 +118,12 @@ export default function Dashboard() {
         </div>
         <Button className="bg-gradient-primary hover:opacity-90">
           <Plus className="w-4 h-4 mr-2" />
-          Create Workspace
+          Create Flow
         </Button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {statsData.map((stat, index) => (
           <Card key={index} className="hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -198,6 +207,44 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Performance Overview */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BarChart3 className="w-5 h-5" />
+            Performance Overview
+          </CardTitle>
+          <CardDescription>
+            System performance and resource utilization
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>CPU Usage</span>
+                <span>42%</span>
+              </div>
+              <Progress value={42} className="h-2" />
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>Memory Usage</span>
+                <span>68%</span>
+              </div>
+              <Progress value={68} className="h-2" />
+            </div>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>Storage Usage</span>
+                <span>24%</span>
+              </div>
+              <Progress value={24} className="h-2" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

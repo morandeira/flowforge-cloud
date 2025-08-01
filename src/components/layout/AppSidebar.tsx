@@ -89,7 +89,7 @@ export function AppSidebar() {
             </>
           )}
           {collapsed && (
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center mx-auto">
               <Workflow className="w-5 h-5 text-white" />
             </div>
           )}
@@ -107,10 +107,8 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} className={getNavClassName}>
-                      
                       <item.icon className="w-4 h-4" />
                       {!collapsed && <span>{item.title}</span>}
-                    
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
