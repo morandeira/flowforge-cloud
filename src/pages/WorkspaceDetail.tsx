@@ -105,6 +105,31 @@ export default function WorkspaceDetail() {
     navigate(`/workspace/${workspaceId}/flow/${flow.id}`);
   };
 
+  const handleEditFlow = (flow: Flow) => {
+    // Navigate to edit the flow
+    navigate(`/workspace/${workspaceId}/flow/${flow.id}`);
+  };
+
+  const handleDuplicateFlow = (flow: Flow) => {
+    // Create a copy of the flow with a new ID and name
+    const duplicatedFlow = {
+      ...flow,
+      id: `flow_${Date.now()}`,
+      name: `${flow.name} (Copy)`,
+      status: 'draft' as const,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    
+    // In a real app, this would call the store or API
+    console.log('Duplicating flow:', duplicatedFlow);
+  };
+
+  const handleDeleteFlow = (flow: Flow) => {
+    // In a real app, this would show a confirmation dialog and then delete
+    console.log('Deleting flow:', flow.id);
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'published':
@@ -165,13 +190,6 @@ export default function WorkspaceDetail() {
           >
             <Edit className="w-4 h-4 mr-2" />
             Edit Workspace
-          </Button>
-          <Button 
-            onClick={() => setIsCreateFlowModalOpen(true)}
-            className="bg-gradient-primary hover:opacity-90"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            New Flow
           </Button>
         </div>
       </div>
@@ -293,9 +311,21 @@ export default function WorkspaceDetail() {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
-                      <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                      <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
+                      <DropdownMenuItem onClick={(e) => {
+                        e.stopPropagation();
+                        handleEditFlow(flow);
+                      }}>Edit</DropdownMenuItem>
+                      <DropdownMenuItem onClick={(e) => {
+                        e.stopPropagation();
+                        handleDuplicateFlow(flow);
+                      }}>Duplicate</DropdownMenuItem>
+                      <DropdownMenuItem 
+                        className="text-destructive"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteFlow(flow);
+                        }}
+                      >Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>

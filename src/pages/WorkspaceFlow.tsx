@@ -90,7 +90,7 @@ export default function WorkspaceFlow() {
   const handleRunFlow = () => {
     toast({
       title: "Flow execution started",
-      description: "Your flow is now running...",
+      description: "Your flow is now executing...",
     });
   };
 
@@ -193,7 +193,7 @@ export default function WorkspaceFlow() {
           
           <Button size="sm" onClick={handleRunFlow} className="bg-gradient-primary hover:opacity-90">
             <Play className="w-4 h-4 mr-2" />
-            Run Flow
+            Execute Flow
           </Button>
         </div>
       </div>
