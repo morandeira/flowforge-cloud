@@ -9,6 +9,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Workspaces from "./pages/Workspaces";
 import WorkspaceDetail from "./pages/WorkspaceDetail";
 import WorkspaceFlow from "./pages/WorkspaceFlow";
 import NotFound from "./pages/NotFound";
@@ -30,6 +31,7 @@ const App = () => (
           }>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="workspaces" element={<Workspaces />} />
             <Route path="workspace/:workspaceId" element={<WorkspaceDetail />} />
             <Route path="workspace/:workspaceId/flow/:flowId" element={<WorkspaceFlow />} />
           </Route>

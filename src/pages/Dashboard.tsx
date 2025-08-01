@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   BarChart3, 
@@ -8,8 +8,11 @@ import {
   Plus,
   TrendingUp,
   Clock,
-  CheckCircle2
+  CheckCircle2,
+  Files
 } from 'lucide-react';
+
+import { CreateWorkspaceModal } from '@/components/modals/CreateWorkspaceModal';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,17 +25,17 @@ import { useAppStore } from '@/stores/appStore';
 
 const statsData = [
   {
-    title: "Active Flows",
+    title: "Total Flows",
     value: "12",
-    change: "+2 from last week",
+    change: "+3 this month",
     icon: Workflow,
     color: "text-primary",
   },
   {
-    title: "Total Executions",
+    title: "Total Files",
     value: "1,426",
-    change: "+18% from last month",
-    icon: Activity,
+    change: "+145 this week",
+    icon: Files,
     color: "text-success",
   },
   {
@@ -41,13 +44,6 @@ const statsData = [
     change: "2 pending invites",
     icon: Users,
     color: "text-warning",
-  },
-  {
-    title: "Success Rate",
-    value: "98.2%",
-    change: "+0.5% improvement",
-    icon: TrendingUp,
-    color: "text-success",
   },
 ];
 
@@ -87,6 +83,7 @@ export default function Dashboard() {
   const { user, tenant } = useSessionStore();
   const { workspaces } = useWorkspaceStore();
   const { setCurrentWorkspace } = useAppStore();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const handleWorkspaceClick = (workspace: any) => {
     setCurrentWorkspace(workspace);
@@ -116,14 +113,17 @@ export default function Dashboard() {
             Here's what's happening with your flows today.
           </p>
         </div>
-        <Button className="bg-gradient-primary hover:opacity-90">
+        <Button 
+          onClick={() => setIsCreateModalOpen(true)}
+          className="bg-gradient-primary hover:opacity-90"
+        >
           <Plus className="w-4 h-4 mr-2" />
-          Create Flow
+          Create Workspace
         </Button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {statsData.map((stat, index) => (
           <Card key={index} className="hover:shadow-md transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -178,6 +178,7 @@ export default function Dashboard() {
             
             <Button 
               variant="outline" 
+              onClick={() => setIsCreateModalOpen(true)}
               className="w-full border-dashed hover:bg-primary/5"
             >
               <Plus className="w-4 h-4 mr-2" />
@@ -208,43 +209,10 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Performance Overview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5" />
-            Performance Overview
-          </CardTitle>
-          <CardDescription>
-            System performance and resource utilization
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>CPU Usage</span>
-                <span>42%</span>
-              </div>
-              <Progress value={42} className="h-2" />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Memory Usage</span>
-                <span>68%</span>
-              </div>
-              <Progress value={68} className="h-2" />
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Storage Usage</span>
-                <span>24%</span>
-              </div>
-              <Progress value={24} className="h-2" />
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <CreateWorkspaceModal 
+        open={isCreateModalOpen}
+        onOpenChange={setIsCreateModalOpen}
+      />
     </div>
   );
 }

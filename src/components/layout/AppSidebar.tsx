@@ -12,6 +12,8 @@ import {
   Palette,
 } from "lucide-react";
 
+import { CreateWorkspaceModal } from "@/components/modals/CreateWorkspaceModal";
+
 import {
   Sidebar,
   SidebarContent,
@@ -46,6 +48,7 @@ export function AppSidebar() {
   const { user, tenant, signOut } = useSessionStore();
   const { workspaces } = useWorkspaceStore();
   const { currentWorkspace, setCurrentWorkspace } = useAppStore();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   
   const collapsed = state === "collapsed";
   
@@ -124,6 +127,7 @@ export function AppSidebar() {
               <Button
                 variant="ghost"
                 size="sm"
+                onClick={() => setIsCreateModalOpen(true)}
                 className="h-6 w-6 p-0 text-sidebar-foreground/60 hover:text-sidebar-foreground"
               >
                 <Plus className="w-3 h-3" />
@@ -200,6 +204,11 @@ export function AppSidebar() {
           </div>
         )}
       </SidebarFooter>
+      
+      <CreateWorkspaceModal 
+        open={isCreateModalOpen}
+        onOpenChange={setIsCreateModalOpen}
+      />
     </Sidebar>
   );
 }
