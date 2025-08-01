@@ -176,14 +176,6 @@ export default function Dashboard() {
               </div>
             ))}
             
-            <Button 
-              variant="outline" 
-              onClick={() => setIsCreateModalOpen(true)}
-              className="w-full border-dashed hover:bg-primary/5"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Create New Workspace
-            </Button>
           </CardContent>
         </Card>
 

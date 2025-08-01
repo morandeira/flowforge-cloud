@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   Plus,
@@ -10,6 +10,9 @@ import {
   MoreHorizontal,
   Edit
 } from 'lucide-react';
+
+import { CreateFlowModal } from '@/components/modals/CreateFlowModal';
+import { EditWorkspaceModal } from '@/components/modals/EditWorkspaceModal';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -83,12 +86,22 @@ export default function WorkspaceDetail() {
   const { workspaceId } = useParams();
   const navigate = useNavigate();
   const { currentWorkspace } = useAppStore();
-  const { workspaces } = useWorkspaceStore();
+  const { workspaces, getWorkspaceFlows } = useWorkspaceStore();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCreateFlowModalOpen, setIsCreateFlowModalOpen] = useState(false);
 
   const workspace = currentWorkspace || workspaces.find(ws => ws.id === workspaceId);
-  const flows = mockFlows.filter(flow => flow.workspaceId === workspaceId);
+  const flows = workspaceId ? getWorkspaceFlows(workspaceId) : [];
+  
+  // Fallback to mock flows if no flows in store
+  const displayFlows = flows.length > 0 ? flows : mockFlows.filter(flow => flow.workspaceId === workspaceId);
 
   const handleFlowClick = (flow: Flow) => {
+    navigate(`/workspace/${workspaceId}/flow/${flow.id}`);
+  };
+
+  const handleFlowCreated = (flow: Flow) => {
+    // Optionally navigate to the new flow
     navigate(`/workspace/${workspaceId}/flow/${flow.id}`);
   };
 
@@ -146,11 +159,17 @@ export default function WorkspaceDetail() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => setIsEditModalOpen(true)}
+          >
             <Edit className="w-4 h-4 mr-2" />
             Edit Workspace
           </Button>
-          <Button className="bg-gradient-primary hover:opacity-90">
+          <Button 
+            onClick={() => setIsCreateFlowModalOpen(true)}
+            className="bg-gradient-primary hover:opacity-90"
+          >
             <Plus className="w-4 h-4 mr-2" />
             New Flow
           </Button>
@@ -165,7 +184,7 @@ export default function WorkspaceDetail() {
               <Workflow className="w-4 h-4 text-primary" />
               <span className="text-sm text-muted-foreground">Total Flows</span>
             </div>
-            <div className="text-2xl font-bold mt-1">{flows.length}</div>
+            <div className="text-2xl font-bold mt-1">{displayFlows.length}</div>
           </CardContent>
         </Card>
         
@@ -176,7 +195,7 @@ export default function WorkspaceDetail() {
               <span className="text-sm text-muted-foreground">Published</span>
             </div>
             <div className="text-2xl font-bold mt-1">
-              {flows.filter(f => f.status === 'published').length}
+              {displayFlows.filter(f => f.status === 'published').length}
             </div>
           </CardContent>
         </Card>
@@ -188,7 +207,7 @@ export default function WorkspaceDetail() {
               <span className="text-sm text-muted-foreground">Draft</span>
             </div>
             <div className="text-2xl font-bold mt-1">
-              {flows.filter(f => f.status === 'draft').length}
+              {displayFlows.filter(f => f.status === 'draft').length}
             </div>
           </CardContent>
         </Card>
@@ -239,14 +258,18 @@ export default function WorkspaceDetail() {
       <div>
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">Flows</h2>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => setIsCreateFlowModalOpen(true)}
+          >
             <Plus className="w-4 h-4 mr-2" />
             Create Flow
           </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {flows.map((flow) => (
+          {displayFlows.map((flow) => (
             <Card 
               key={flow.id} 
               className="hover:shadow-md transition-shadow cursor-pointer"
@@ -318,6 +341,23 @@ export default function WorkspaceDetail() {
           ))}
         </div>
       </div>
+      
+      {workspace && (
+        <EditWorkspaceModal 
+          open={isEditModalOpen}
+          onOpenChange={setIsEditModalOpen}
+          workspace={workspace}
+        />
+      )}
+      
+      {workspaceId && (
+        <CreateFlowModal 
+          open={isCreateFlowModalOpen}
+          onOpenChange={setIsCreateFlowModalOpen}
+          workspaceId={workspaceId}
+          onFlowCreated={handleFlowCreated}
+        />
+      )}
     </div>
   );
 }
